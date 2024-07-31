@@ -1,0 +1,17 @@
+{% extends "appisn/index.html"%}
+
+{% block titulo %} ISN | Cursos {%endblock%}
+
+{% block contenidoQueCambia %}
+
+{% include 'appisn/publicidad.html' %} 
+
+<h1> Aca estaran listados todos los cursos </h1>
+
+{% for curso in cursos%}
+
+{{curso.nombre}} - {{curso.comision}}
+
+{%  endfor %}
+
+{% endblock%}

@@ -1,0 +1,20 @@
+{% extends 'appisn/index.html' %}
+
+{% load static%}
+
+{% block title %} Formulario - Agregar Curso {% endblock title%}
+
+
+{% if miFormulario.errors %}
+
+<form action="" method="POST">
+        {% csrf_token %}
+    
+    <table>
+        {{ mi_formulario.as_table }}
+    </table>
+    <input type="submit" value="Enviar">
+
+</form>
+
+{% endif %}
