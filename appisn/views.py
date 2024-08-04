@@ -3,7 +3,11 @@ from appisn.models import Curso
 from appisn.forms import CursoFormulario
 from appisn.models import Profesor
 from appisn.forms import ProfesorFormulario
-
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.views import LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.   
 def inicio(request):
@@ -84,5 +88,76 @@ def profesorFormulario(request):
         mi_formulario = ProfesorFormulario()
 
     return render(request, "appisn/profesorFormulario.html", {"mi_formulario": mi_formulario})
+
+def login_request(request):
+
+    if request.method == "POST":
+        form = AuthenticationForm(request, data = request.POST)
+
+        if form.is_valid():
+            usuario = form.cleaned_data.get('username')
+            contra = form.cleaned_data.get('password')
+
+            user = authenticate(username=usuario, password=contra)
+
+            if user is not None:
+                login(request, user)
+
+                return render(request, "appisn/inicio.html", {"mensaje":f"Bienvenido {usuario}"})
+            else:
+
+                return render(request, "appisn/inicio.html", {"mensaje":"Error, datos incorrectos"})
+        
+        else:
+
+                return render(request,"appisn/inicio.html" , {"mensaje": "Error, formulario erroneo"})
+
+    form = AuthenticationForm()
+
+    return render(request, "appisn/login.html", {'form':form})
+
+def register(request):
+
+    if request.method == 'POST':
+
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+
+            username= form.cleaned_data['username']
+            form.save()
+            return render(request, "appisn/inicio.html", {"mensaje": "Usuario Creado:)"})
+        
+    else:
+        form= UserCreationForm()
+
+    return render(request, "appisn/registro.html" , {"form": form})
+
+"""def register(request):
+
+    if request.method == 'POST':
+
+        form = UserRegisterForm(request.POST)
+
+        if form.is_valid():
+
+            username= form.cleaned_data['username']
+            form.save()
+            return render(request, "appisn/inicio.html", {"mensaje": "Usuario Creado:)"})
+        
+    else:
+        form= UserRegisterForm()
+
+    return render(request, "appisn/registro.html" , {"form": form})"""
+
+@login_required
+def inicio(request):
+    return render(request, "appisn/inicio.html")
+
+            
+            
+
+    
+
 
 

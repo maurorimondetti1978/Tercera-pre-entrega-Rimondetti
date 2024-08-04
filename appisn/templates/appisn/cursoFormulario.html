@@ -6,10 +6,11 @@
 
 {% block contenidoQueCambia %}
 
-    <form action= "curso-formulario" method="post"> {% csrf_token%}
+    <form action= "curso-formulario" method="POST"> {% csrf_token%}
         <p> Curso: <input type="text" name="curso" <p>
-        <p> Camada: <input type="number" name="camada" <p>
+        <p> Camada: <input type="number" name="comision" <p>
         <input type="submit" value="Enviar">
 
     <form>
+
 {% endblock %}
