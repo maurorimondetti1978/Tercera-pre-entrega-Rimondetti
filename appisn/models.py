@@ -4,10 +4,10 @@ from django.db import models
 
 class Curso(models.Model):
     nombre = models.CharField(max_length=40)
-    comision = models.IntegerField()
+    camada = models.IntegerField()
 
     def __str__(self) -> str:
-        return f"Nombre del curso: {self.nombre} - Nombre de comision: {self.comision}"
+        return f"Nombre del curso: {self.nombre} - Nombre de comision: {self.camada}"
 
 class Estudiante(models.Model):
     nombre = models.CharField(max_length=40)

@@ -8,18 +8,13 @@
 {% block contenidoQueCambia %}
 
 
-{% if miFormulario.errors %}
+    <form action="" method="POST">{% csrf_token %}
+        <p>Profesor: <input type="text" name="nombre"></p>
+        <p>Apellido : <input type="text" name="apellido" ></p>
+        <p>email: <input type="text" name= "email"></p>
+        <p>Profesion: <input type="text" name= "profesion"></p>
+        <input type="submit" value="Enviar">
 
-<form action="" method="POST">
-        {% csrf_token %}
-    
-    <table>
-        {{ mi_formulario.as_table }}
-    </table>
-    <input type="submit" value="Enviar">
-
-</form>
-
-{% endif %}
+    </form>
 
 {% endblock %}
